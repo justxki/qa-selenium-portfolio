@@ -1,16 +1,19 @@
 from selenium.webdriver.common.by import By
 
-class BooksHomePage:
+class BookDetailPage:
 
-    URL = 'https://books.toscrape.com/catalogue/page-3.html'
-
-    SELECT_BOOK_TITLE = (By.CSS_SELECTOR, 'h3 a')
+    BOOK_TITLE_MAIN = (By.CSS_SELECTOR, '#content_inner h1')
+    BOOK_PRICE_MAIN = (By.CSS_SELECTOR, '.product_main .price_color')
+    BOOK_STOCK_MAIN = (By.CSS_SELECTOR, '.product_main .instock')
 
     def __init__(self, browser):
         self.browser = browser
 
-    def load(self):
-        self.browser.get(self.URL)
+    def title(self):
+        return self.browser.find_element(*self.BOOK_TITLE_MAIN).text
 
-    def click_book(self):
-        self.browser.find_elements(*self.SELECT_BOOK_TITLE)[1].click()
+    def price(self):
+        return self.browser.find_element(*self.BOOK_PRICE_MAIN).text
+
+    def stock(self):
+        return self.browser.find_element(*self.BOOK_STOCK_MAIN).text
