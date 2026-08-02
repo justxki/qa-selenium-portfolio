@@ -3,6 +3,7 @@ import pytest
 from pages.HerokuLoginPage import HerokuLogin
 from pages.HerokuSecurePage import HerokuSecure
 from pages.HerokuDropdownPage import HerokuDropdown
+from pages.HerokuDynamicLoadPage import HerokuDynamicLoad
 
 
 def test_login_submit(browser):
@@ -25,3 +26,10 @@ def test_dropdown(browser):
     assert dropdown.selected_option() == "Option 1"
 
 
+def test_dynamic_load(browser):
+    dynamic_page = HerokuDynamicLoad(browser)
+    dynamic_page.load()
+    dynamic_page.hit_button()
+    loaded_element = dynamic_page.loaded_text()
+    assert loaded_element.is_displayed()
+    assert "Hello World!" in loaded_element.text
